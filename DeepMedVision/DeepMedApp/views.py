@@ -132,4 +132,11 @@ def existing_records(request):
 '''View to render create records page'''
 @login_required
 def create_record(request):
+    if request.method == 'POST':
+        form = PatientForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')  # Redirect to a success page after saving
+    else:
+        form = PatientForm()
     return render(request, 'DeepMedApp/create_record.html')

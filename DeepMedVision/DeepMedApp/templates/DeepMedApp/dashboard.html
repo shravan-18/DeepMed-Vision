@@ -3,6 +3,17 @@
 
 {% block title %} Dashboard {% endblock %}
 
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
 {% block content %}
-    <h1>Dashboard</h1>
+<div class="landing-container">
+    <h1 class="landing-title">DeepMed Vision</h1>
+    <h2 class="landing-subtitle">The Ultimate Medical Imaging Suite</h2>
+    <div class="landing-buttons">
+        <a href="{% url 'create_record' %}" class="btn">Get Started</a>
+        {% comment %} <a href="{% url 'contact' %}" class="btn">Contact Us</a> {% endcomment %}
+    </div>
+</div>
 {% endblock %}

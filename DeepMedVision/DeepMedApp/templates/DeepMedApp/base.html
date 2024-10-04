@@ -1,6 +1,5 @@
 {% load static %}
 
-<!-- base.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +11,8 @@
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     
     <!-- Block for page-specific stylesheets -->
-    {% block extra_styles %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block extra_styles %}
     {% endblock %}
 </head>
 <body>
@@ -23,16 +22,15 @@
     <!-- Main Content -->
     <main>
         {% block content %}
-
         {% endblock %}
     </main>
 
     <!-- Footer -->
     {% include 'DeepMedApp/partials/footer.html' %}
 
-    {% comment %} <!-- Shared scripts -->
+    <!-- Shared scripts -->
     <script src="{% static 'js/navbar.js' %}"></script>
-    <script src="{% static 'js/footer.js' %}"></script> {% endcomment %}
+    <script src="{% static 'js/footer.js' %}"></script>
     
     <!-- Block for page-specific scripts -->
     {% block extra_scripts %}

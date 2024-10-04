@@ -4,7 +4,7 @@
 {% block title %} Login {% endblock %}
 
 {% block extra_styles %}
-    <link rel="stylesheet" href="{% static 'css/login-styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -15,17 +15,15 @@
                 <h2>Log In</h2>
                 <input type="text" name="Email" required>
                 <span>Email Address</span>
-                <i></i>
             </div>
             <div class="input-box">
                 <input type="password" name="Password" required>
                 <span>Enter Password</span>
-                <i></i>
             </div>
             <input type="submit" value="Login">
             <div class="links">
                 <a href="#">Help</a>
-                <a href="signup.html">Sign Up</a>
+                <a href="{% url 'signupuser' %}">Sign Up</a>
             </div>
         </form>
     </div>
