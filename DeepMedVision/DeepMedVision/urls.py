@@ -16,7 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+
+from DeepMedApp import views as DeepMedAppViews
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('', DeepMedAppViews.home, name='home'),
+    path('login/', DeepMedAppViews.loginuser, name='loginuser'),
+    path('logout/', DeepMedAppViews.logoutuser, name='logoutuser'),
+    path('signup/', DeepMedAppViews.signupuser, name='signupuser'),
+    path('dashboard/', DeepMedAppViews.dashboard, name='dashboard'),
 ]

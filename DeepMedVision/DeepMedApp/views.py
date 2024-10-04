@@ -6,12 +6,11 @@ from django.http import StreamingHttpResponse, JsonResponse, HttpResponse, HttpR
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 
-from .static.scripts import functions, classify
+from .static.scripts import functions
 from .forms import *
 from .models import *
 
 import os
-import cv2
 import json
 import base64
 
