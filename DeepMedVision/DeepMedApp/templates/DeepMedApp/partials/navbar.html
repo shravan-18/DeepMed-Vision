@@ -1,7 +1,21 @@
-{% load static %}
-
 <!-- partials/navbar.html -->
-<nav>
-    <!-- Navbar content here -->
-     Navbar
-</nav>
+<nav id="nav-bar">
+    <a href="#"><i class="fa-brands fa-github"></i></a>
+    <ul id="nav-ul">
+      <a href="{% url 'dashboard' %}" class="nav-point">
+        <li id="nav-li" class="{% if request.path == '/dashboard/' %}active{% endif %}">Dashboard</li>
+      </a>
+      <a href="{% url 'about' %}">
+        <li id="nav-li" class="{% if request.path == '/about/' %}active{% endif %}">About Us</li>
+      </a>
+      <a href="{% url 'create_record' %}">
+        <li id="nav-li" class="{% if request.path == '/create_record/' %}active{% endif %}">Create Record</li>
+      </a>
+      <a href="{% url 'existing_records' %}">
+        <li id="nav-li" class="{% if request.path == '/existing_records/' %}active{% endif %}">Existing Records</li>
+      </a>
+      <a href="{% url 'contact' %}">
+        <li id="nav-li" class="{% if request.path == '/contact/' %}active{% endif %}">Contact</li>
+      </a>
+    </ul>
+  </nav> 

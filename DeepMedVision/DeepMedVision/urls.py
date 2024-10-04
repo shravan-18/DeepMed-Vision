@@ -22,10 +22,18 @@ from django.conf.urls.static import static
 from DeepMedApp import views as DeepMedAppViews
 
 urlpatterns = [
+    # Test URLs
+    path('navbar/', DeepMedAppViews.navbar, name='navbar'),
+    path('footer/', DeepMedAppViews.footer, name='footer'),
+    # Main URLs
     path("admin/", admin.site.urls),
     path('', DeepMedAppViews.home, name='home'),
     path('login/', DeepMedAppViews.loginuser, name='loginuser'),
     path('logout/', DeepMedAppViews.logoutuser, name='logoutuser'),
     path('signup/', DeepMedAppViews.signupuser, name='signupuser'),
     path('dashboard/', DeepMedAppViews.dashboard, name='dashboard'),
-]
+    path('about/', DeepMedAppViews.about, name='about'),
+    path('create_record/', DeepMedAppViews.create_record, name='create_record'),
+    path('existing_records/', DeepMedAppViews.existing_records, name='existing_records'),
+    path('contact/', DeepMedAppViews.contact, name='contact'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

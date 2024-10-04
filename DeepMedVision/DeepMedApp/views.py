@@ -101,3 +101,35 @@ def logoutuser(request):
 @login_required
 def dashboard(request):
     return render(request, 'DeepMedApp/dashboard.html')
+
+
+'''View to render navbar'''
+def navbar(request):
+    return render(request, 'DeepMedApp/partials/navbar.html')
+
+
+'''View to render footer'''
+@login_required
+def footer(request):
+    return render(request, 'DeepMedApp/partials/footer.html')
+
+
+'''View to render about page'''
+@login_required
+def about(request):
+    return render(request, 'DeepMedApp/about.html')
+
+'''View to render contact page'''
+@login_required
+def contact(request):
+    return render(request, 'DeepMedApp/contact.html')
+
+'''View to render existing records page'''
+@login_required
+def existing_records(request):
+    return render(request, 'DeepMedApp/existing_records.html')
+
+'''View to render create records page'''
+@login_required
+def create_record(request):
+    return render(request, 'DeepMedApp/create_record.html')
