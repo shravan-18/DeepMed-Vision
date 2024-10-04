@@ -3,7 +3,8 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start; /* Start at the top */
+    padding-top: 100px; /* Add padding to make space for the navbar */
     background-color: #2c2f33;
     font-family: 'Inconsolata', 'Montserrat', sans-serif;
 }
