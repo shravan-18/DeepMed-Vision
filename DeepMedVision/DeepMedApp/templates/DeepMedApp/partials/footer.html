@@ -3,5 +3,30 @@
 <!-- partials/footer.html -->
 <footer>
     <!-- Footer content here -->
-    Footer
+      <footer id="footer">
+        <div class="col col1">
+          <h3>DeepMed-Vision</h3>
+          <b><p>Team <span style="color: #BA6573;">Anton</span></p></b>
+          <div class="social">
+            <a href="https://codepen.io/Juxtopposed" target="_blank" class="link"><img src="https://assets.codepen.io/9051928/codepen_1.png" alt="" /></a>
+            <a href="https://twitter.com/juxtopposed" target="_blank" class="link"><img src="https://assets.codepen.io/9051928/x.png" alt="" /></a>
+            <a href="https://youtube.com/@juxtopposed" target="_blank" class="link"><img src="https://assets.codepen.io/9051928/youtube_1.png" alt="" /></a>
+          </div>
+          <b><p style="color: #818181; font-size: smaller">Intel Gen AI Hackathon '24.</p></b>
+        </div>
+        <div class="col col2">
+            <p><a href="{% url 'home' %}">➲ Home</a></p>
+            <p><a href="{% url 'about' %}">➲ About</a></p>
+            <p><a href="{% url 'dashboard' %}">➲ Dashboard</a></p>
+            <p><a href="{% url 'contact' %}">➲ Contact</a></p>
+          </div>
+          
+        <div class="col col3">
+          <p>◈ Shravan Venkatraman</p>
+          <p>◈ Pavan Kumar S</p>
+          <p>◈ Ajay Sriram</p>
+          <p>◈ Maheswer Sunil</p>
+        </div>
+        <div class="backdrop"></div>
+      </footer>
 </footer>
