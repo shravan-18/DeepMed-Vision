@@ -36,4 +36,6 @@ urlpatterns = [
     path('create_record/', DeepMedAppViews.create_record, name='create_record'),
     path('existing_records/', DeepMedAppViews.existing_records, name='existing_records'),
     path('contact/', DeepMedAppViews.contact, name='contact'),
+    path('scanner/<int:id>', DeepMedAppViews.scanner_view, name='scanner_view'),
+    path('upload/', DeepMedAppViews.upload_image, name='upload_image'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

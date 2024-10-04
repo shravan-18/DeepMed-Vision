@@ -51,7 +51,7 @@ button {
 footer {
   z-index: 500;
   width: 100%;
-  height: 100%;
+  height: 40vh;
   margin-top: 20px;
   display: flex;
   flex-direction: row;
