@@ -1,0 +1,60 @@
+/* CSS for the form */
+.form-container {
+    max-width: 600px;
+    margin-top: 50px;
+    margin-bottom: 125px;
+    background-color: black;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+  }
+  
+  h1 {
+    text-align: center;
+    color: #f6e4ad;
+    margin-bottom: 30px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    font-size: 1.2rem;
+    color: white;
+    margin-bottom: 10px;
+  }
+  
+  input, select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+  
+  input:focus, select:focus {
+    outline: none;
+    border-color: #f6e4ad;
+  }
+  
+  .btn {
+    display: inline-block;
+    width: 100%;
+    padding: 15px;
+    background-color: #f6e4ad;
+    color: rgb(36, 45, 57);
+    font-size: 1.2rem;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .btn:hover {
+    background-color: rgb(36, 45, 57);
+    color: #f6e4ad;
+  }
+  

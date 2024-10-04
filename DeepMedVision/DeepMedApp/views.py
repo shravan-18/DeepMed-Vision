@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.conf import settings
 from django.http import StreamingHttpResponse, JsonResponse, HttpResponse, HttpResponseNotFound
+from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 
@@ -132,4 +133,47 @@ def existing_records(request):
 '''View to render create records page'''
 @login_required
 def create_record(request):
+    if request.method == 'POST':
+        form = PatientForm(request.POST)
+        if form.is_valid():
+            patient = form.save()
+            return redirect('scanner_view', patient.id)  # Redirect to a success page after saving
+    else:
+        form = PatientForm()
     return render(request, 'DeepMedApp/create_record.html')
+
+
+'''View to render scanner page'''
+@login_required
+def scanner_view(request, id):
+    if request.method == 'POST':
+        # Handle any POST data or processing specific to this view
+        # For example, you can process form data sent via POST here
+        return JsonResponse({'message': 'POST request handled!'}, status=200)
+    return render(request, 'DeepMedApp/scanner.html')
+
+
+'''View to accept incoming image uploads in the scanner page'''
+@csrf_exempt  # For example purposes only. Do NOT use csrf_exempt in production; use proper CSRF handling.
+@login_required
+def upload_image(request):
+    if request.method == 'POST':
+        # Get the uploaded image and additional data from the request
+        image = request.FILES.get('image')
+        modality = request.POST.get('modality')
+        task = request.POST.get('task')
+
+        # Debugging prints (You can remove them once validated)
+        print(f"Image: {image}")
+        print(f"Modality: {modality}")
+        print(f"Task: {task}")
+
+        # Perform necessary processing, like saving the image, handling the modality/task, etc.
+        if image and modality and task:
+            # You can save the image or do further processing here
+            
+            return JsonResponse({'message': 'Data received successfully!'}, status=200)
+        else:
+            return JsonResponse({'error': 'Missing data in request'}, status=400)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
