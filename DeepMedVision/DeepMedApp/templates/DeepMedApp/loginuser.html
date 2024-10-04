@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="css/login-styles.css">
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %} Login {% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/login-styles.css' %}">
+{% endblock %}
+
+{% block content %}
     <div class="box">
         <form action="">
             <div class="input-box">
@@ -27,5 +27,4 @@
             </div>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}

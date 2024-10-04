@@ -1,0 +1,38 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Base {% endblock %}</title>
+    <!-- Shared Stylesheets -->
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    
+    <!-- Block for page-specific stylesheets -->
+    {% block extra_styles %}
+    {% endblock %}
+</head>
+<body>
+    <!-- Navbar -->
+    {% include 'partials/navbar.html' %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}
+
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    {% include 'partials/footer.html' %}
+
+    {% comment %} <!-- Shared scripts -->
+    <script src="{% static 'js/navbar.js' %}"></script>
+    <script src="{% static 'js/footer.js' %}"></script> {% endcomment %}
+    
+    <!-- Block for page-specific scripts -->
+    {% block extra_scripts %}
+    {% endblock %}
+</body>
+</html>
