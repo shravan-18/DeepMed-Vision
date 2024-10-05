@@ -15,22 +15,22 @@ DEEPMED VISION is a web-based platform designed for the secure and efficient han
 ## Screenshots
 
 ### Login Page
-![Login]((https://github.com/shravan-18/DeepMed-Vision/blob/main/DeepMedVision/DeepMedApp/static/images/Login.png))
+![Login](https://github.com/shravan-18/DeepMed-Vision/blob/main/DeepMedVision/DeepMedApp/static/images/Login.png)
 
 ### Main Homepage
-![Main Homepage]((https://github.com/shravan-18/DeepMed-Vision/blob/main/DeepMedVision/DeepMedApp/static/images/mainhomepage.png))
+![Main Homepage](https://github.com/shravan-18/DeepMed-Vision/blob/main/DeepMedVision/DeepMedApp/static/images/mainhomepage.png)
 
 ### Image Upload Page
-![Image Upload]((https://github.com/shravan-18/DeepMed-Vision/blob/main/DeepMedVision/DeepMedApp/static/images/imageupload.png))
+![Image Upload](https://github.com/shravan-18/DeepMed-Vision/blob/main/DeepMedVision/DeepMedApp/static/images/imageupload.png)
 
 ### Patient Details Page
-![Patient Details]((https://github.com/shravan-18/DeepMed-Vision/blob/main/DeepMedVision/DeepMedApp/static/images/Patient%20Details%202.png))
+![Patient Details](https://github.com/shravan-18/DeepMed-Vision/blob/main/DeepMedVision/DeepMedApp/static/images/Patient%20Details%202.png)
 
 ### Patient History Page
-![Patient History]((https://github.com/shravan-18/DeepMed-Vision/blob/main/DeepMedVision/DeepMedApp/static/images/Patient%20History.png))
+![Patient History](https://github.com/shravan-18/DeepMed-Vision/blob/main/DeepMedVision/DeepMedApp/static/images/Patient%20History.png)
 
 ### Scan Page
-![Scan]((https://github.com/shravan-18/DeepMed-Vision/blob/main/DeepMedVision/DeepMedApp/static/images/scan.png))
+![Scan](https://github.com/shravan-18/DeepMed-Vision/blob/main/DeepMedVision/DeepMedApp/static/images/scan.png)
 
 ## User Flow
 
