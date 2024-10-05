@@ -8,6 +8,7 @@ class Patient(models.Model):
     # address = models.CharField(max_length=255, default='123 Main St')
     contact_number = models.CharField(max_length=15, default='1234567890')
     diagnosis = models.CharField(max_length=255, default='Not Diagnosed')
+    image = models.ImageField(upload_to='medical_images/', blank=True, null=True)
 
     def __str__(self):
         return f"{self.name} - {self.diagnosis}"

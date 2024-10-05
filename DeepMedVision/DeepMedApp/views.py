@@ -2,18 +2,20 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.conf import settings
-from django.http import StreamingHttpResponse, JsonResponse, HttpResponse, HttpResponseNotFound
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
+from django.core.files.storage import default_storage
 
-from .static.scripts import functions
+from .static.scripts import functions, LLM
 from .forms import *
 from .models import *
 
-import os
-import json
-import base64
+import torch
+from PIL import Image
+
+import intel_extension_for_pytorch as ipex
 
 
 '''Function to fully delete all session variables from latest session'''
@@ -137,6 +139,7 @@ def create_record(request):
         form = PatientForm(request.POST)
         if form.is_valid():
             patient = form.save()
+            request.session['patient_id'] = patient.id
             return redirect('scanner_view', patient.id)  # Redirect to a success page after saving
     else:
         form = PatientForm()
@@ -153,27 +156,67 @@ def scanner_view(request, id):
     return render(request, 'DeepMedApp/scanner.html')
 
 
+def infer(request, image_path):
+    # Load the appropriate model based on the modality and task from the session
+    model = torch.load(f"{request.session['modality']}_{request.session['task']}.pth")
+    model = ipex.optimize(model)  # Optimize the model using Intel IPEX
+
+    # Perform inference with the model
+    input_image = Image.open(image_path)
+    output_tensor = model(input_image)
+
+    # Create a brief inference result
+    mini_inference = f"Mini inference based on {image_path}: {output_tensor}"
+
+    # Generate a detailed inference explanation using the LLM
+    detailed_inference = f"Detailed inference based on {image_path}: {LLM(output_tensor, image_path)}"
+
+    return mini_inference, detailed_inference
+
+
+
 '''View to accept incoming image uploads in the scanner page'''
-@csrf_exempt  # For example purposes only. Do NOT use csrf_exempt in production; use proper CSRF handling.
-@login_required
 def upload_image(request):
     if request.method == 'POST':
-        # Get the uploaded image and additional data from the request
-        image = request.FILES.get('image')
-        modality = request.POST.get('modality')
-        task = request.POST.get('task')
+        # Check if the image is in the POST request
+        if 'image' not in request.FILES:
+            return JsonResponse({'error': 'No image file in request'}, status=400)
+        
+        image_file = request.FILES['image']
+        
+        # Debugging: log the received file
+        print(f"Received image: {image_file.name}")
 
-        # Debugging prints (You can remove them once validated)
-        print(f"Image: {image}")
-        print(f"Modality: {modality}")
-        print(f"Task: {task}")
+        # Get the patient id from session
+        patient_id = request.session.get('id')
+        if not patient_id:
+            return JsonResponse({'error': 'No patient ID found in session'}, status=400)
+        
+        try:
+            # Fetch the patient instance
+            modality = request.POST['modality']
+            task = request.POST['task']
 
-        # Perform necessary processing, like saving the image, handling the modality/task, etc.
-        if image and modality and task:
-            # You can save the image or do further processing here
+            request.session['modality'] = modality
+            request.session['task'] = task
+
+            patient = Patient.objects.get(id=patient_id)
+            patient.image = image_file  # Save image to the Patient model
+            patient.save()
+
+            # Run inference on saved image
+            mini_inference, detailed_inference = infer(request, patient.image.path)
             
-            return JsonResponse({'message': 'Data received successfully!'}, status=200)
-        else:
-            return JsonResponse({'error': 'Missing data in request'}, status=400)
-
+            return JsonResponse({
+                'message': 'Image processed successfully!',
+                'mini_inference': mini_inference,
+                'detailed_inference': detailed_inference
+            }, status=200)
+        except Patient.DoesNotExist:
+            return JsonResponse({'error': 'Patient not found'}, status=404)
+        except Exception as e:
+            # Log any unexpected errors for debugging
+            print(f"Unexpected error: {e}")
+            return JsonResponse({'error': 'An unexpected error occurred'}, status=500)
+    
     return JsonResponse({'error': 'Invalid request method'}, status=400)

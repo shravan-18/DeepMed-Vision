@@ -126,6 +126,12 @@
         button {
             cursor: pointer;
         }
+        #drop-zone img {
+            width: 100%;  /* Ensure the image takes up the full width of the drop zone */
+            height: auto; /* Maintain the aspect ratio */
+            border-radius: 10px; /* Optional: keep the rounded corners */
+            object-fit: contain; /* Ensure the image is fully contained without cropping */
+        }        
     </style>
 {% endblock %}
 
@@ -160,16 +166,26 @@
         <div class="output-box" id="output">
             Text output:
         </div>
+        <div class="output-box" id="mini-inference">
+            Mini Inference: 
+        </div>
+        <div class="output-box" id="detailed-inference">
+            Detailed Inference: 
+        </div>        
     </div>
 </div>
 {% endblock %}
 
 {% block extra_scripts %}
+<script type="text/javascript">
+    const csrfToken = "{{ csrf_token }}";
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const dropZone = document.getElementById('drop-zone');
         const fileInput = document.getElementById('file-input');
         const outputBox = document.getElementById('output');
+        const csrfToken = document.getElementById('csrf-token').value;
         let file;
 
         // Open file dialog when clicking the drop area
@@ -204,44 +220,74 @@
             }
         });
 
-        // AJAX form submission using the Import button
         document.getElementById('import-btn').addEventListener('click', (e) => {
             e.preventDefault();
-
+        
             if (!file) {
                 outputBox.innerText = 'No file selected!';
                 return;
             }
-
-            const modalityElement = document.getElementById('modality');
-            const taskElement = document.getElementById('task');
-            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
-            if (!modalityElement || !taskElement || !csrfToken) {
-                outputBox.innerText = 'Modality, task, or CSRF token not found!';
-                return;
-            }
-
+        
             const formData = new FormData();
-            formData.append('image', file);
-            formData.append('modality', modalityElement.value);
-            formData.append('task', taskElement.value);
-
+            formData.append('image', file); // Append the image file
+        
             fetch('/upload/', {
                 method: 'POST',
                 body: formData,
                 headers: {
-                    'X-CSRFToken': csrfToken
+                    'X-CSRFToken': csrfToken  // Ensure CSRF token is correctly passed
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    outputBox.innerText = 'Error: ' + data.error;
+                } else {
+                    outputBox.innerText = 'File uploaded successfully!';
+                    // Show uploaded image in dropzone
+                    const imageUrl = URL.createObjectURL(file); 
+                    dropZone.innerHTML = `<img src="${imageUrl}" alt="Uploaded Image" style="width:100%; height:auto;">`;
+                    document.getElementById('scan-btn').disabled = false; // Enable scan button
+                }
+            })
+            .catch(error => {
+                outputBox.innerText = 'Error: ' + error.message;
+            });
+        });        
+        
+        document.getElementById('scan-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+        
+            if (!file) {
+                outputBox.innerText = 'No file selected!';
+                return;
+            }
+        
+            const formData = new FormData();
+            formData.append('image', file);
+        
+            fetch('/scan/', {  // Assuming scan is a different route
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': csrfToken  // Use the CSRF token from the hidden input
                 }
             })
             .then(response => response.json())
             .then(data => {
-                outputBox.innerText = 'Success: ' + JSON.stringify(data);
+                // Update inference boxes
+                document.getElementById('mini-inference').innerText = 'Mini Inference: ' + data.mini_inference;
+                document.getElementById('detailed-inference').innerText = 'Detailed Inference: ' + data.detailed_inference;
             })
             .catch(error => {
                 outputBox.innerText = 'Error: ' + error;
             });
-        });
+        });              
     });
 </script>
 {% endblock %}
