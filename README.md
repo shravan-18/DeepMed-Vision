@@ -1,4 +1,3 @@
-# DeepMed-Vision
 # DEEPMED VISION
 
 DEEPMED VISION is a web-based platform designed for the secure and efficient handling of medical images for various diagnostic tasks. The platform enables healthcare professionals to upload, analyze, and manage medical images (MRI, CT, ECG, etc.) and associate them with patient information. DEEPMED VISION streamlines medical imaging processes and enhances the workflow for doctors, radiologists, and healthcare providers.
