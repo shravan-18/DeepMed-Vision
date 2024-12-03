@@ -129,7 +129,7 @@ DEEPMED VISION is designed with scalability in mind. Future versions could inclu
 
 - [Shravan Venkatraman](https://github.com/shravan-18) ![GitHub Icon](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white)
 - [Pavan Kumar S](https://github.com/pavan-0725) ![GitHub Icon](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white)
-- [Maheswer Sunil Kumar](https://github.com/) ![GitHub Icon](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white)
+- [Maheswer Sunil Kumar](https://github.com/maheswersunil) ![GitHub Icon](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white)
 - [Ajay Sriram](https://github.com/ajays49) ![GitHub Icon](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white)
 
 We welcome contributions! Feel free to submit issues or pull requests.
